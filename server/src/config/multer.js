@@ -1,5 +1,4 @@
 const multer = require('multer')
-import store from './../../../../../react-native-study/crud-native/shopping-list-tx88/client/src/store';
 const path = require('path')
 const crypto = require('crypto')
 
@@ -11,7 +10,7 @@ module.exports = {
         },
         filename: (req, file, callback) => {
             crypto.randomBytes(16, (erro, hash) => {
-                if(erro) callback(err)
+                if(erro) callback(erro)
 
                 const fileName = `${hash.toString('hex')}-${file.originalname}`
 
@@ -25,11 +24,14 @@ module.exports = {
     fileFilter: (req, file, callback) => {
         const allowedMimes = [
             'image/jpg',
+            'image/jpeg',
             'image/pjpeg',
             'image/png',
             'image/gif'
 
         ]
+        console.log('tipo de arquivo', file.mimetype)
+        debugger
         if(allowedMimes.includes(file.mimetype)){
             callback(null, true)
         }else{
